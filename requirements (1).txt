@@ -1,0 +1,5 @@
+opencv-python
+dlib-bin
+scipy
+pygame
+imutils
