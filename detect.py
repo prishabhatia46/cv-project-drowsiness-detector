@@ -6,7 +6,7 @@ import time
 import dlib
 import cv2
 
-# --- EAR Calculate karne ka formula ---
+# --- EAR CALCULATION FORMULA ---
 def eye_aspect_ratio(eye):
     A = dist.euclidean(eye[1], eye[5])
     B = dist.euclidean(eye[2], eye[4])
@@ -15,22 +15,21 @@ def eye_aspect_ratio(eye):
     return ear
 
 # --- Settings ---
-EAR_THRESHOLD = 0.25   # Isse kam hua toh neend aa rahi hai
-FRAME_LIMIT = 20       # Kitne frames tak aankhein band rahe toh alarm
+EAR_THRESHOLD = 0.25   
+FRAME_LIMIT = 20       
 
 # --- Alarm setup ---
 pygame.mixer.init()
-pygame.mixer.music.load("alarm.wav")  # alarm.wav apne folder mein rakho
-
+pygame.mixer.music.load("alarm.wav")  
 # --- dlib setup ---
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
-# --- Aankhon ke landmark index ---
+# --- LANDMARK INDEX OF EYES ---
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-# --- Webcam shuru karo ---
+# --- START WEBCAM ---
 cap = cv2.VideoCapture(0)
 counter = 0
 
@@ -57,7 +56,7 @@ while True:
         rightEAR = eye_aspect_ratio(rightEye)
         ear = (leftEAR + rightEAR) / 2.0
 
-        # Aankhon ka outline draw karo
+        # DRAW OUTLINE FOR EYES
         cv2.drawContours(frame, [cv2.convexHull(leftEye)],  -1, (0, 255, 0), 1)
         cv2.drawContours(frame, [cv2.convexHull(rightEye)], -1, (0, 255, 0), 1)
 
